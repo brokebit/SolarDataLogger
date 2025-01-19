@@ -62,3 +62,8 @@ Edit platform.ini to set some global variables and config parameters.
 - Redo design in KiCad instead of EasyEDA and add to repo
 - Finish add onboard with INA226 and CMX60D10
 - Code clean up. Comments, proper error handling, review memory managment, null point checks, etc
+
+<p float="left">
+  <img src="https://github.com/brokebit/SolarDataLogger/blob/main/assets/Brokebit-Cat-Logo.png?raw=true" width="200" />
+  <img src="https://github.com/brokebit/SolarDataLogger/blob/main/assets/oshw-logo-800-px.png?raw=true" width="200" />
+</p>
