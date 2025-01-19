@@ -8,7 +8,7 @@ Firmware for custom data logger for Victron MPPT charge controllers via the Ve.D
 - Power via 9v-20v input or USB
 - ESP32-C6 CPU
 - Wifi 6 support
-- Recive, parse and publish data from MPPT controller
+- Receive, parse, and publish data from a Victron MPPT controller
 - Publishes: panel voltage, battery voltage, panel current, battery current, serial number, etc
 - Publish data via MQTT in InfluxDB line protocol format
 - Onboard temperature and humidity sensors (AHT20)
