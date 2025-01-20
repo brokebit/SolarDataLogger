@@ -18,4 +18,6 @@
   (lib (name "ESP32-C6-WROOM-1-N8")(type "KiCad")(uri "${KIPRJMOD}/parts/ESP32-C6-WROOM-1-N8.kicad_sym")(options "")(descr ""))
   (lib (name "C969151-CP2102N")(type "KiCad")(uri "${KIPRJMOD}/parts/C969151-CP2102N.kicad_sym")(options "")(descr ""))
   (lib (name "C125977-220uF-Cap")(type "KiCad")(uri "${KIPRJMOD}/parts/C125977-220uF-Cap.kicad_sym")(options "")(descr ""))
+  (lib (name "2305908-2")(type "KiCad")(uri "${KIPRJMOD}/parts/2305908-2.kicad_sym")(options "")(descr ""))
+  (lib (name "2213932-3")(type "KiCad")(uri "${KIPRJMOD}/parts/2213932-3.kicad_sym")(options "")(descr ""))
 )
