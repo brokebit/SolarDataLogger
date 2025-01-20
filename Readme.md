@@ -47,12 +47,12 @@ Edit platform.ini to set some global variables and config parameters.
 - AHT20_PRESENT: Set this to 1 if you have a AHT20 connected. Otherwise 0.
 - SENSOR_LOCATION: Set this to any string you want. It will be included in the mqtt message. No more than 24 characters
 - SENSOR_TYPE: Set this to whatever you want. i.e. ESP32-C6 or ESP32-S3. No more than 24 characters
-
-![alt text](https://github.com/brokebit/SolarDataLoggerV2-ESP-IDF/blob/main/hardware/Schematic-v1.1.svg?raw=true)
+           
+![alt text](https://github.com/brokebit/SolarDataLogger/blob/main/hardware/Schematic-v1.1.svg?raw=true)
 # What can you do with it? 
 
 ## Grafana Dashboard Example
-![alt text](https://github.com/brokebit/SolarDataLoggerV2-ESP-IDF/blob/main/assets/GrafanaScreenshot.png?raw=true)
+![alt text](https://github.com/brokebit/SolarDataLogger/blob/main/assets/GrafanaScreenshot.png?raw=true)
 
 # To Do
 - WS2812 Driver
