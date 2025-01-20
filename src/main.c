@@ -24,6 +24,12 @@
 
 #include "driver/i2c_master.h"
 
+#include "esp_ws28xx.h"
+
+#define LED_GPIO 8
+CRGB* ws2812_buffer;
+
+
 #if (INA226_PRESENT == 1) || (AHT20_PRESENT == 1)
     #include "my-i2c.h"
     i2c_master_bus_handle_t i2c_bus_handle;
@@ -290,6 +296,10 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
 
+    ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_init(LED_GPIO, WS2812B, 1, &ws2812_buffer));
+    ws2812_buffer[0] = (CRGB){.r=50, .g=0, .b=0};
+    ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_update());
+
     vTaskDelay(2000 / portTICK_PERIOD_MS); // debug delay
 
     #if (INA226_PRESENT == 1) || (AHT20_PRESENT == 1)
@@ -333,5 +343,8 @@ void app_main(void)
     xTaskCreate(mqtt_app_start, "mqtt_app_start", 4096, (void *)client, 1, NULL);
 
     msg_id = esp_mqtt_client_publish(client, MQTT_TOPIC, "WootWoot 22222", 0, 1, 0);
+
+    ws2812_buffer[0] = (CRGB){.r=0, .g=10, .b=0};
+    ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_update());
 
 }
