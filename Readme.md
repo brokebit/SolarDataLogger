@@ -55,13 +55,16 @@ Edit platform.ini to set some global variables and config parameters.
 ![alt text](https://github.com/brokebit/SolarDataLogger/blob/main/assets/GrafanaScreenshot.png?raw=true)
 
 # To Do
-- WS2812 Driver
+- Fix math for INA226 current sensor and address twos compliment
 - CMX60D10 Relay Driver
 - OTA Updates
 - Some way to configure it without recompiling 
 - Redo design in KiCad instead of EasyEDA and add to repo
 - Finish add onboard with INA226 and CMX60D10
 - Code clean up. Comments, proper error handling, review memory managment, null point checks, etc
+
+# Done
+- WS2812 Driver
 
 <p float="left">
   <img src="https://github.com/brokebit/SolarDataLogger/blob/main/assets/Brokebit-Cat-Logo.png?raw=true" width="200" />
