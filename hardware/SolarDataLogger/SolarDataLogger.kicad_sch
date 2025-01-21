@@ -8470,6 +8470,7 @@
 	)
 	(label "SCL"
 		(at 269.24 156.21 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8480,6 +8481,7 @@
 	)
 	(label "GPIO9"
 		(at 67.31 265.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8490,6 +8492,7 @@
 	)
 	(label "SDA"
 		(at 246.38 71.12 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8500,6 +8503,7 @@
 	)
 	(label "TXD0"
 		(at 265.43 153.67 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8510,6 +8514,7 @@
 	)
 	(label "USB_D+"
 		(at 265.43 146.05 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8520,6 +8525,7 @@
 	)
 	(label "CHIP_PU"
 		(at 314.96 48.26 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8530,6 +8536,7 @@
 	)
 	(label "GPIO8"
 		(at 364.49 99.06 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8540,6 +8547,7 @@
 	)
 	(label "V_TXD"
 		(at 322.58 142.24 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8550,6 +8558,7 @@
 	)
 	(label "V_TXD"
 		(at 265.43 140.97 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8560,6 +8569,7 @@
 	)
 	(label "SCL"
 		(at 264.16 71.12 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8570,6 +8580,7 @@
 	)
 	(label "TXD0"
 		(at 238.76 121.92 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8580,6 +8591,7 @@
 	)
 	(label "RXD0"
 		(at 265.43 151.13 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8590,6 +8602,7 @@
 	)
 	(label "RXD0"
 		(at 261.62 121.92 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8600,6 +8613,7 @@
 	)
 	(label "TXD0"
 		(at 195.58 63.5 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8610,6 +8624,7 @@
 	)
 	(label "SDA"
 		(at 270.51 43.18 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8620,6 +8635,7 @@
 	)
 	(label "GPIO8"
 		(at 215.9 163.83 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8630,6 +8646,7 @@
 	)
 	(label "D+"
 		(at 135.89 66.04 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8640,6 +8657,7 @@
 	)
 	(label "RXD0"
 		(at 195.58 60.96 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8650,6 +8668,7 @@
 	)
 	(label "SCL"
 		(at 240.03 43.18 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8660,6 +8679,7 @@
 	)
 	(label "GPIO2"
 		(at 264.16 73.66 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8670,6 +8690,7 @@
 	)
 	(label "D-"
 		(at 135.89 63.5 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8680,6 +8701,7 @@
 	)
 	(label "D-"
 		(at 88.9 63.5 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8690,6 +8712,7 @@
 	)
 	(label "GPIO1"
 		(at 214.63 146.05 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8700,6 +8723,7 @@
 	)
 	(label "USB_D-"
 		(at 91.44 140.97 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8710,6 +8734,7 @@
 	)
 	(label "USB_D-"
 		(at 265.43 143.51 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8720,6 +8745,7 @@
 	)
 	(label "RTS"
 		(at 195.58 58.42 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8730,6 +8756,7 @@
 	)
 	(label "GPIO9"
 		(at 215.9 166.37 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8740,6 +8767,7 @@
 	)
 	(label "RTS"
 		(at 355.6 48.26 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8750,6 +8778,7 @@
 	)
 	(label "USB_D+"
 		(at 91.44 138.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8760,6 +8789,7 @@
 	)
 	(label "CHIP_PU"
 		(at 214.63 138.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8770,6 +8800,7 @@
 	)
 	(label "V_RXD"
 		(at 265.43 138.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8780,6 +8811,7 @@
 	)
 	(label "DTR"
 		(at 314.96 43.18 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8790,6 +8822,7 @@
 	)
 	(label "D+"
 		(at 88.9 66.04 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8800,6 +8833,7 @@
 	)
 	(label "GPIO2"
 		(at 214.63 148.59 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8810,6 +8844,7 @@
 	)
 	(label "SDA"
 		(at 269.24 158.75 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8820,6 +8855,7 @@
 	)
 	(label "GPIO1"
 		(at 246.38 73.66 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8830,6 +8866,7 @@
 	)
 	(label "V_RXD"
 		(at 322.58 139.7 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8840,6 +8877,7 @@
 	)
 	(label "GPIO9"
 		(at 353.06 43.18 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8850,6 +8888,7 @@
 	)
 	(label "DTR"
 		(at 195.58 68.58 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8860,6 +8899,7 @@
 	)
 	(label "CHIP_PU"
 		(at 106.68 265.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -12402,7 +12442,7 @@
 				)
 			)
 		)
-		(property "Footprint" "23059082"
+		(property "Footprint" "2305908-2:23059082"
 			(at 41.91 332.41 0)
 			(effects
 				(font
@@ -13496,7 +13536,7 @@
 				)
 			)
 		)
-		(property "Footprint" "C17179450-2x3-IDC-Header:HDR-TH_6P-P2.54-V-F-R2-C3-S2.54-4"
+		(property "Footprint" "Connector_IDC:IDC-Header_2x03_P2.54mm_Vertical_SMD"
 			(at 257.81 81.28 0)
 			(effects
 				(font
@@ -17825,7 +17865,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "22139323"
+		(property "Footprint" "2213932-3:22139323"
 			(at 346.71 234.62 0)
 			(effects
 				(font
