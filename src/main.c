@@ -297,7 +297,7 @@ void app_main(void)
     ESP_ERROR_CHECK(ret);
 
     ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_init(LED_GPIO, WS2812B, 1, &ws2812_buffer));
-    ws2812_buffer[0] = (CRGB){.r=50, .g=0, .b=0};
+    ws2812_buffer[0] = (CRGB){.r=25, .g=8, .b=0};
     ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_update());
 
     vTaskDelay(2000 / portTICK_PERIOD_MS); // debug delay
@@ -344,7 +344,7 @@ void app_main(void)
 
     msg_id = esp_mqtt_client_publish(client, MQTT_TOPIC, "WootWoot 22222", 0, 1, 0);
 
-    ws2812_buffer[0] = (CRGB){.r=0, .g=10, .b=0};
+    ws2812_buffer[0] = (CRGB){.r=0, .g=5, .b=0};
     ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_update());
 
 }
