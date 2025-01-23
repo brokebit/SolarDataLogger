@@ -15,6 +15,7 @@
 #include "esp_log.h"
 #include "nvs_flash.h"
 #include "esp_netif.h"
+#include "esp_mac.h"
 
 #include "lwip/err.h"
 #include "lwip/sys.h"
@@ -22,9 +23,15 @@
 #include "lwip/dns.h"
 #include "lwip/netdb.h"
 
+
 #include "driver/i2c_master.h"
 
 #include "esp_ws28xx.h"
+
+#define FIRMWARE_VERSION "1.0.0"
+
+#define SENSOR_LOCATION "alley"
+#define SENSOR_TYPE "esp32c6"
 
 #define LED_GPIO 8
 CRGB* ws2812_buffer;
@@ -75,12 +82,11 @@ static const char *WIFITAG = "Wifi-Tasks";
 static const char *MQTTTAG = "Mqtt-Tasks";
 
 static int s_retry_num = 0;
+static char my_mac[13];
 
 static void mqtt_app_start(void *pvParameter)
 {
     esp_mqtt_client_handle_t client = (esp_mqtt_client_handle_t)pvParameter;
-
-    // xEventGroupWaitBits(my_event_group, MQTT_CONNECTED_BIT, false, true, portMAX_DELAY);
 
     const char *mqtt_data;
     struct SolarData SolarData_Now;
@@ -106,15 +112,13 @@ static void mqtt_app_start(void *pvParameter)
 
             if (INA226_PRESENT == 1) {
                 ina226_voltage(&ina226_data);
-                // snprintf(SolarData_Now.V, sizeof(SolarData_Now.V), "%f", ina226_data.voltage);
                 ina226_current(&ina226_data);
                 snprintf(SolarData_Now.IL, sizeof(SolarData_Now.IL), "%.2f", ina226_data.current);
                 ina226_power(&ina226_data);
-                // snprintf(SolarData_Now.PPV, sizeof(SolarData_Now.PPV), "%f", ina226_data.power);
             }
 
-            sprintf(influx_string,"sensor,location=%s,type=esp32c6,id=%s panel_voltage=%s,battery_voltage=%s,load_out_state=%s,battery_current=%s,mem_alloc=%i,mem_free=%i,load_current=%s,temp=%s,humidity=%s", \
-                                   "alley", SolarData_Now.SERIAL, SolarData_Now.VPV, SolarData_Now.V, SolarData_Now.LOAD, SolarData_Now.I, \
+            sprintf(influx_string,"sensor,location=%s,type=%s,id=%s panel_voltage=%s,battery_voltage=%s,load_out_state=%s,battery_current=%s,mem_alloc=%i,mem_free=%i,load_current=%s,temp=%s,humidity=%s", \
+                                   SENSOR_LOCATION, SENSOR_TYPE, SolarData_Now.SERIAL, SolarData_Now.VPV, SolarData_Now.V, SolarData_Now.LOAD, SolarData_Now.I, \
                                    (int)SolarData_Now.free_mem_data, (int)SolarData_Now.free_mem_data, SolarData_Now.IL, SolarData_Now.TEMP, SolarData_Now.HUMD);
             
             influxString_length = strlen(influx_string);
@@ -143,31 +147,17 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 {
     ESP_LOGD(MQTTTAG, "Event dispatched from event loop base=%s, event_id=%" PRIi32 "", base, event_id);
     esp_mqtt_event_handle_t event = event_data;
-    esp_mqtt_client_handle_t client = event->client;
-    int msg_id;
+    // esp_mqtt_client_handle_t client = event->client;
+
     switch ((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_CONNECTED");
-        // msg_id = esp_mqtt_client_publish(client, "/topic/qos1", "data_3", 0, 1, 0);
-        // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
-
-        // msg_id = esp_mqtt_client_subscribe(client, "/topic/qos0", 0);
-        // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-
-        // msg_id = esp_mqtt_client_subscribe(client, "/topic/qos1", 1);
-        // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-
-        // msg_id = esp_mqtt_client_unsubscribe(client, "/topic/qos1");
-        // ESP_LOGI(TAG, "sent unsubscribe successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_DISCONNECTED:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_DISCONNECTED");
         break;
-
     case MQTT_EVENT_SUBSCRIBED:
-        //ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
-        //msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
-        //ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+        ESP_LOGI(MQTTTAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
         break;
     case MQTT_EVENT_UNSUBSCRIBED:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
@@ -177,17 +167,13 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         break;
     case MQTT_EVENT_DATA:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_DATA");
-        printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
-        printf("DATA=%.*s\r\n", event->data_len, event->data);
+        // printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
+        // printf("DATA=%.*s\r\n", event->data_len, event->data);
         break;
     case MQTT_EVENT_ERROR:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_ERROR");
         if (event->error_handle->error_type == MQTT_ERROR_TYPE_TCP_TRANSPORT) {
-            // log_error_if_nonzero("reported from esp-tls", event->error_handle->esp_tls_last_esp_err);
-            // log_error_if_nonzero("reported from tls stack", event->error_handle->esp_tls_stack_err);
-            // log_error_if_nonzero("captured as transport's socket errno",  event->error_handle->esp_transport_sock_errno);
-            ESP_LOGD(MQTTTAG, "Last errno string (%s)", strerror(event->error_handle->esp_transport_sock_errno));
-
+            ESP_LOGD(MQTTTAG, "Last errno string (%s)", strerror(event->error_handle->esp_transport_sock_errno));            
         }
         break;
     default:
@@ -288,7 +274,13 @@ void wifi_init_sta(void)
 
 void app_main(void)
 {
-    //Initialize NVS
+    uint8_t mac[6];
+    esp_base_mac_addr_get(mac);
+    snprintf(my_mac, 13, "%02X%02X%02X%02X%02X%02X",
+             mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
+    ESP_LOGI("TAG", "MAC Address: %s", my_mac);
+
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
       ESP_ERROR_CHECK(nvs_flash_erase());
@@ -330,7 +322,7 @@ void app_main(void)
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     esp_mqtt_client_start(client);
 
-    int msg_id = esp_mqtt_client_publish(client, MQTT_TOPIC, "WootWoot", 0, 1, 0);
+    // int msg_id = esp_mqtt_client_publish(client, MQTT_TOPIC, "WootWoot", 0, 1, 0);
 
     xQueue_mqtt = xQueueCreate( 2, sizeof( struct SolarData));
     if (xQueue_mqtt == NULL) {
@@ -339,10 +331,9 @@ void app_main(void)
     }
 
     xTaskCreate(recieve_serial, "recieve_serial", 4096, (void *)xQueue_mqtt, 1, NULL);
-    //xTaskCreate(recieve_serial, "recieve_serial", 4096, &recieve_serial_args, 1, NULL);
     xTaskCreate(mqtt_app_start, "mqtt_app_start", 4096, (void *)client, 1, NULL);
 
-    msg_id = esp_mqtt_client_publish(client, MQTT_TOPIC, "WootWoot 22222", 0, 1, 0);
+    esp_mqtt_client_publish(client, my_mac, FIRMWARE_VERSION, 0, 1, 0);
 
     ws2812_buffer[0] = (CRGB){.r=0, .g=5, .b=0};
     ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_update());
