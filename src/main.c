@@ -25,7 +25,7 @@
 
 
 #include "driver/i2c_master.h"
-
+#include "ota.h"
 #include "esp_ws28xx.h"
 
 #define FIRMWARE_VERSION "1.0.0"
@@ -78,8 +78,8 @@ static EventGroupHandle_t s_wifi_event_group;
 QueueHandle_t xQueue_mqtt;
 
 static const char *TAG = "Main-Task";
-static const char *WIFITAG = "Wifi-Tasks";
-static const char *MQTTTAG = "Mqtt-Tasks";
+static const char *WIFITAG = "Wifi-Task";
+static const char *MQTTTAG = "Mqtt-Task";
 
 static int s_retry_num = 0;
 static char my_mac[13];
