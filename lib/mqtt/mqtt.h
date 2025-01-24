@@ -18,6 +18,7 @@ typedef struct {
     char *sensor_type;
     int publish_interval;
     int queue_refill_wait;
+    char *mac;
 } MY_MQTT_DATA;
 
 esp_err_t mqtt_init(MY_MQTT_DATA *my_mqtt_data);

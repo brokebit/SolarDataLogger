@@ -200,6 +200,7 @@ void app_main(void) {
     my_mqtt_data->publish_interval = MQTT_PUBLISH_INTERVAL;
     my_mqtt_data->queue_refill_wait = QUEUE_REFILL_WAIT;
     my_mqtt_data->xQueue_mqtt = xQueueCreate( 2, sizeof( struct SolarData));
+    my_mqtt_data->mac = my_mac;
 
     #if (INA226_PRESENT == 1) || (AHT20_PRESENT == 1)
         ESP_LOGI(TAG, "At least one of INA226 or AHT20 is present and I2C driver is included.");

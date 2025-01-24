@@ -8,6 +8,10 @@
 // QueueHandle_t xQueue_mqtt;
 
 static const char *MQTTTAG = "Mqtt-Task";
+esp_err_t process_command(char *command) {
+    ESP_LOGI(MQTTTAG, "Processing command: %s", command);
+    return ESP_OK;
+}
 
 esp_err_t mqtt_init(MY_MQTT_DATA *my_mqtt_data) {
 
@@ -17,7 +21,7 @@ esp_err_t mqtt_init(MY_MQTT_DATA *my_mqtt_data) {
 
     my_mqtt_data->client = esp_mqtt_client_init(&mqtt_cfg);
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
-    esp_mqtt_client_register_event(my_mqtt_data->client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
+    esp_mqtt_client_register_event(my_mqtt_data->client, ESP_EVENT_ANY_ID, mqtt_event_handler, my_mqtt_data);
     esp_mqtt_client_start(my_mqtt_data->client);
     
     return ESP_OK;
@@ -84,8 +88,10 @@ void mqtt_app_start(void *pvParameter) {
     
 }
 
-void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
-{
+void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data) {
+
+    MY_MQTT_DATA *my_mqtt_data = (MY_MQTT_DATA *)handler_args;
+
     ESP_LOGD(MQTTTAG, "Event dispatched from event loop base=%s, event_id=%" PRIi32 "", base, event_id);
     esp_mqtt_event_handle_t event = event_data;
     // esp_mqtt_client_handle_t client = event->client;
@@ -93,6 +99,8 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
     switch ((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_CONNECTED");
+        int msg_id = esp_mqtt_client_subscribe(my_mqtt_data->client, my_mqtt_data->mac, 1);
+        ESP_LOGI(MQTTTAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_DISCONNECTED:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_DISCONNECTED");
@@ -110,6 +118,7 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_DATA");
         // printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
         // printf("DATA=%.*s\r\n", event->data_len, event->data);
+        process_command(event->data);
         break;
     case MQTT_EVENT_ERROR:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_ERROR");
