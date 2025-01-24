@@ -3,13 +3,31 @@
 #include "esp_log.h"
 #include <victron.h>
 #include "mqtt.h"
+#include "ota.h"
 
 
 // QueueHandle_t xQueue_mqtt;
 
 static const char *MQTTTAG = "Mqtt-Task";
-esp_err_t process_command(char *command) {
+
+esp_err_t process_command(char *command, MY_MQTT_DATA *my_mqtt_data) {
     ESP_LOGI(MQTTTAG, "Processing command: %s", command);
+
+    if (strncmp(command, "ota", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "OTA Command Recieved");
+        run_ota(my_mqtt_data->mac);
+    }   
+
+    if (strncmp(command, "rbk", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "Rollback Command Recieved");
+        run_rollback();
+    }
+
+    if (strncmp(command, "rst", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "Reset Command Recieved");
+        esp_restart();
+    }
+
     return ESP_OK;
 }
 
@@ -118,7 +136,7 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_DATA");
         // printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
         // printf("DATA=%.*s\r\n", event->data_len, event->data);
-        process_command(event->data);
+        process_command(event->data, my_mqtt_data);
         break;
     case MQTT_EVENT_ERROR:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_ERROR");

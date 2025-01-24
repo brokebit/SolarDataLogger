@@ -1,10 +1,18 @@
 #include "esp_http_client.h"
 #include "esp_https_ota.h"
+#include "esp_ota_ops.h"
 #include "esp_log.h"
 #include "ota.h"
 
 esp_err_t client_event_handler(esp_http_client_event_t *evt) {
   return ESP_OK;
+}
+
+void run_rollback() {
+    const esp_partition_t *running = esp_ota_get_running_partition();
+    const esp_partition_t *old = esp_ota_get_next_update_partition(running);
+    esp_ota_set_boot_partition(old);
+    esp_restart();
 }
 
 void run_ota(char *mac) {
