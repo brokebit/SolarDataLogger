@@ -29,7 +29,7 @@
 #include "ota.h"
 #include "esp_ws28xx.h"
 
-#define FIRMWARE_VERSION "1.0.0"
+#define FIRMWARE_VERSION "1.1.2"
 
 #define SENSOR_LOCATION "alley"
 #define SENSOR_TYPE "esp32c6"
@@ -236,5 +236,7 @@ void app_main(void) {
 
     ws2812_buffer[0] = (CRGB){.r=0, .g=5, .b=0};
     ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_update());
+
+    ESP_LOGI(TAG, "Firmware Version: %s", FIRMWARE_VERSION);
 
 }

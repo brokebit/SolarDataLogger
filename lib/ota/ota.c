@@ -4,6 +4,8 @@
 #include "esp_log.h"
 #include "ota.h"
 
+static const char *OTATAG = "OTA-Task";
+
 esp_err_t client_event_handler(esp_http_client_event_t *evt) {
   return ESP_OK;
 }
@@ -17,15 +19,14 @@ void run_rollback() {
 
 void run_ota(char *mac) {
 
-    ESP_LOGI("OTA", "Invoking OTA");
+    ESP_LOGI(OTATAG, "Invoking OTA");
 
-    const char *url = "https://brokebit-esp32-firmware.s3.us-east-1.amazonaws.com/";
-    size_t full_url_length = strlen(url) + strlen(mac) + 1;
+    //const char *url = "https://brokebit-esp32-firmware.s3.us-east-1.amazonaws.com/";
+    size_t full_url_length = strlen(OTA_BASE_URL) + strlen(mac) + 1;
     char *full_url = (char *)malloc(full_url_length);
-    snprintf(full_url, full_url_length, "%s%s", url, mac);
-    ESP_LOGI("OTA", "Full URL: %s\n", full_url);
+    snprintf(full_url, full_url_length, "%s%s", OTA_BASE_URL, mac);
+    ESP_LOGI(OTATAG, "Full URL: %s\n", full_url);
 
-    // .url = "https://brokebit-esp32-firmware.s3.us-east-1.amazonaws.com/firmware.bin", // our ota location
     esp_http_client_config_t clientConfig = {
         .url = full_url,
         .event_handler = client_event_handler,
@@ -37,11 +38,11 @@ void run_ota(char *mac) {
 
     if (esp_https_ota(&ota_config) == ESP_OK)
     {
-      ESP_LOGI("OTA", "OTA flash succsessfull for version.");
-      printf("restarting in 5 seconds\n");
+      ESP_LOGI(OTATAG, "OTA flash succsessfull for version.");
+      ESP_LOGE(OTATAG, "Restarting in 5 seconds\n");
       vTaskDelay(pdMS_TO_TICKS(5000));
       esp_restart();
     }
-    ESP_LOGE("OTA", "Failed to update firmware");
+    ESP_LOGE(OTATAG, "Failed to update firmware");
     free(full_url);
 }

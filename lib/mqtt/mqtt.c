@@ -11,7 +11,7 @@
 static const char *MQTTTAG = "Mqtt-Task";
 
 esp_err_t process_command(char *command, MY_MQTT_DATA *my_mqtt_data) {
-    ESP_LOGI(MQTTTAG, "Processing command: %s", command);
+    // ESP_LOGI(MQTTTAG, "Processing command: %s", command);
 
     if (strncmp(command, "ota", 3) == 0) {
         ESP_LOGI(MQTTTAG, "OTA Command Recieved");
@@ -117,7 +117,10 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
     switch ((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(MQTTTAG, "MQTT_EVENT_CONNECTED");
-        int msg_id = esp_mqtt_client_subscribe(my_mqtt_data->client, my_mqtt_data->mac, 1);
+        char cmd_channel[17]; 
+        snprintf(cmd_channel, sizeof(cmd_channel), "%s-cmd", my_mqtt_data->mac);
+        ESP_LOGI(MQTTTAG, "Subscribing to command channel: %s", cmd_channel);
+        int msg_id = esp_mqtt_client_subscribe(my_mqtt_data->client, cmd_channel, 1);
         ESP_LOGI(MQTTTAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_DISCONNECTED:
