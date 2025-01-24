@@ -169,12 +169,6 @@ void wifi_init_sta(void) {
 }
 
 void app_main(void) {
-    uint8_t mac[6];
-    esp_base_mac_addr_get(mac);
-    snprintf(my_mac, 13, "%02X%02X%02X%02X%02X%02X",
-             mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
-
-    ESP_LOGI("TAG", "MAC Address: %s", my_mac);
 
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -189,25 +183,12 @@ void app_main(void) {
 
     vTaskDelay(2000 / portTICK_PERIOD_MS); // debug delay
 
-    #if (INA226_PRESENT == 1) || (AHT20_PRESENT == 1)
-        ESP_LOGI(TAG, "At least one of INA226 or AHT20 is present and I2C driver is included.");
-        my_i2c_init(I2C_CONTROLLER_0, 19, 18, &i2c_bus_handle);
-        
-    #endif
-    
-    #if (INA226_PRESENT == 1)
-        ina226_data.bus_handle = i2c_bus_handle;
-        ina226_init(&ina226_data);
-	#endif
+    uint8_t mac[6];
+    esp_base_mac_addr_get(mac);
+    snprintf(my_mac, 13, "%02X%02X%02X%02X%02X%02X",
+             mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
-    #if (AHT20_PRESENT == 1)
-        aht20_data.bus_handle = i2c_bus_handle;
-        aht20_init(&aht20_data);
-    #endif
-
-    ESP_LOGI(TAG, "Initializing Wifi");
-    wifi_init_sta();
-
+    ESP_LOGI("TAG", "MAC Address: %s", my_mac);
 
     MY_MQTT_DATA *my_mqtt_data = malloc(sizeof(MY_MQTT_DATA));
     
@@ -219,6 +200,26 @@ void app_main(void) {
     my_mqtt_data->publish_interval = MQTT_PUBLISH_INTERVAL;
     my_mqtt_data->queue_refill_wait = QUEUE_REFILL_WAIT;
     my_mqtt_data->xQueue_mqtt = xQueueCreate( 2, sizeof( struct SolarData));
+
+    #if (INA226_PRESENT == 1) || (AHT20_PRESENT == 1)
+        ESP_LOGI(TAG, "At least one of INA226 or AHT20 is present and I2C driver is included.");
+        my_i2c_init(I2C_CONTROLLER_0, 19, 18, &i2c_bus_handle);
+    #endif
+    
+    #if (INA226_PRESENT == 1)
+        ina226_data.bus_handle = i2c_bus_handle;
+        ina226_init(&ina226_data);
+        my_mqtt_data->ina226_data = ina226_data;
+	#endif
+
+    #if (AHT20_PRESENT == 1)
+        aht20_data.bus_handle = i2c_bus_handle;
+        aht20_init(&aht20_data);
+        my_mqtt_data->aht20_data = aht20_data;
+    #endif
+
+    ESP_LOGI(TAG, "Initializing Wifi");
+    wifi_init_sta();
     
     if (my_mqtt_data->xQueue_mqtt == NULL) { 
         ESP_LOGE(TAG, "Error creating the queue");

@@ -19,18 +19,16 @@ esp_err_t mqtt_init(MY_MQTT_DATA *my_mqtt_data) {
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
     esp_mqtt_client_register_event(my_mqtt_data->client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     esp_mqtt_client_start(my_mqtt_data->client);
-
-    // int msg_id = esp_mqtt_client_publish(client, MQTT_TOPIC, "WootWoot", 0, 1, 0);
-
+    
     return ESP_OK;
 
 }
 
 void mqtt_app_start(void *pvParameter) {
     //esp_mqtt_client_handle_t client = (esp_mqtt_client_handle_t)pvParameter;
-
+    
     MY_MQTT_DATA *my_mqtt_data = (MY_MQTT_DATA *)pvParameter;
-
+    
     const char *mqtt_data;
     struct SolarData SolarData_Now;
     char influx_string[256];
@@ -59,13 +57,13 @@ void mqtt_app_start(void *pvParameter) {
                 snprintf(SolarData_Now.IL, sizeof(SolarData_Now.IL), "%.2f", my_mqtt_data->ina226_data.current);
                 ina226_power(&my_mqtt_data->ina226_data);
             }
-
+            
             sprintf(influx_string,"sensor,location=%s,type=%s,id=%s panel_voltage=%s,battery_voltage=%s,load_out_state=%s,battery_current=%s,mem_alloc=%i,mem_free=%i,load_current=%s,temp=%s,humidity=%s", \
                                    my_mqtt_data->sensor_location, my_mqtt_data->sensor_type, SolarData_Now.SERIAL, SolarData_Now.VPV, SolarData_Now.V, SolarData_Now.LOAD, SolarData_Now.I, \
                                    (int)SolarData_Now.free_mem_data, (int)SolarData_Now.free_mem_data, SolarData_Now.IL, SolarData_Now.TEMP, SolarData_Now.HUMD);
             
             influxString_length = strlen(influx_string);
-
+            
             if (publish_interval_counter == my_mqtt_data->publish_interval) {
                 esp_mqtt_client_publish(my_mqtt_data->client, my_mqtt_data->topic, mqtt_data, influxString_length, 0, 0);
                 publish_interval_counter = 0; 
