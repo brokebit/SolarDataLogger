@@ -29,7 +29,7 @@
 #include "ota.h"
 #include "esp_ws28xx.h"
 
-#define FIRMWARE_VERSION "1.1.2"
+#define FIRMWARE_VERSION "1.1.3"
 
 #define SENSOR_LOCATION "alley"
 #define SENSOR_TYPE "esp32c6"
@@ -201,6 +201,7 @@ void app_main(void) {
     my_mqtt_data->queue_refill_wait = QUEUE_REFILL_WAIT;
     my_mqtt_data->xQueue_mqtt = xQueueCreate( 2, sizeof( struct SolarData));
     my_mqtt_data->mac = my_mac;
+    my_mqtt_data->fmw_version = FIRMWARE_VERSION;
 
     #if (INA226_PRESENT == 1) || (AHT20_PRESENT == 1)
         ESP_LOGI(TAG, "At least one of INA226 or AHT20 is present and I2C driver is included.");
@@ -232,7 +233,8 @@ void app_main(void) {
     xTaskCreate(recieve_serial, "recieve_serial", 4096, (void *)my_mqtt_data->xQueue_mqtt, 1, NULL);
     xTaskCreate(mqtt_app_start, "mqtt_app_start", 4096, (void *)my_mqtt_data, 1, NULL);
 
-    esp_mqtt_client_publish(my_mqtt_data->client, my_mac, FIRMWARE_VERSION, 0, 1, 0);
+    // esp_mqtt_client_publish(my_mqtt_data->client, my_mac, FIRMWARE_VERSION, 0, 1, 0);
+    mqtt_publish(my_mqtt_data->client, my_mac, FIRMWARE_VERSION);
 
     ws2812_buffer[0] = (CRGB){.r=0, .g=5, .b=0};
     ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_update());

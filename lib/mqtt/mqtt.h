@@ -19,9 +19,11 @@ typedef struct {
     int publish_interval;
     int queue_refill_wait;
     char *mac;
+    char *fmw_version;
 } MY_MQTT_DATA;
 
 esp_err_t mqtt_init(MY_MQTT_DATA *my_mqtt_data);
+esp_err_t mqtt_publish(esp_mqtt_client_handle_t client, const char *topic, const char *data);
 void mqtt_app_start(void *pvParameter);
 void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data);
 

@@ -10,6 +10,13 @@
 
 static const char *MQTTTAG = "Mqtt-Task";
 
+esp_err_t mqtt_publish(esp_mqtt_client_handle_t client, const char *topic, const char *data) {
+    int msg_id;
+    msg_id = esp_mqtt_client_publish(client, topic, data, 0, 1, 0);
+    ESP_LOGI(MQTTTAG, "Sent publish successful, msg_id=%d", msg_id);
+    return ESP_OK;
+}
+
 esp_err_t process_command(char *command, MY_MQTT_DATA *my_mqtt_data) {
     // ESP_LOGI(MQTTTAG, "Processing command: %s", command);
 
@@ -26,6 +33,37 @@ esp_err_t process_command(char *command, MY_MQTT_DATA *my_mqtt_data) {
     if (strncmp(command, "rst", 3) == 0) {
         ESP_LOGI(MQTTTAG, "Reset Command Recieved");
         esp_restart();
+    }
+
+    if (strncmp(command, "png", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "Ping Command Recieved");
+        mqtt_publish(my_mqtt_data->client, my_mqtt_data->mac, "pong");
+    }
+
+    if (strncmp(command, "ver", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "Version Command Recieved");
+        mqtt_publish(my_mqtt_data->client, my_mqtt_data->mac, my_mqtt_data->fmw_version);
+    }
+
+    if (strncmp(command, "mem", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "Memory Command Recieved");
+        char mem_data[16];
+        snprintf(mem_data, sizeof(mem_data), "%li", esp_get_free_heap_size());
+        mqtt_publish(my_mqtt_data->client, my_mqtt_data->mac, mem_data);
+    }
+
+    if (strncmp(command, "tmp", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "Temperature Command Recieved");
+        char temp_data[6];
+        snprintf(temp_data, sizeof(temp_data), "%.3f", my_mqtt_data->aht20_data.temperature_c);
+        mqtt_publish(my_mqtt_data->client, my_mqtt_data->mac, temp_data);
+    }
+
+    if (strncmp(command, "hum", 3) == 0) {
+        ESP_LOGI(MQTTTAG, "Humidity Command Recieved");
+        char hum_data[6];
+        snprintf(hum_data, sizeof(hum_data), "%.3f", my_mqtt_data->aht20_data.humidity);
+        mqtt_publish(my_mqtt_data->client, my_mqtt_data->mac, hum_data);
     }
 
     return ESP_OK;
