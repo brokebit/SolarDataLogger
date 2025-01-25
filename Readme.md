@@ -7,7 +7,7 @@ Firmware for custom data logger for Victron MPPT charge controllers via the Ve.D
 ## Features
 - Power via 9v-20v input or USB
 - ESP32-C6 RISC-V CPU
-- Wifi 6 support
+- Wifi 6 support and provisioning credentials via BLE
 - Receive, parse, and publish data from a Victron MPPT controller
 - Publishes: panel voltage, battery voltage, panel current, battery current, serial number, etc
 - Publish data via MQTT in InfluxDB line protocol format
@@ -70,6 +70,13 @@ Edit platform.ini to set some global variables and config parameters.
 # OTA
 - Firmware is download via https from any URL. The firmware looks for a file that is the mac address in all caps. 
 - Firmware URL is defined in : OTA_BASE_URL (without the filename)
+- Rememeber you need to configure partitions.csv 1mb partition is not enough. 
+
+# WiFi Provisioning
+- To make a QR Code for provisioning use the following JSON string and fill in appropriate values:
+```{"ver":"v1","name":"PROV_123456","pop":"abcd12345","transport":"ble"}```
+- Use the mobile app called "ESP BLE Provisioning"
+- In menuconfig make sure that: Component config -> Bluetooth -> Bluetooth controller -> Controller Options is set to BLE not Dual Mode.
 
 # What can you do with it? 
 
@@ -84,23 +91,9 @@ Edit platform.ini to set some global variables and config parameters.
 - Finish add onboard with INA226 and CMX60D10
 - Code clean up. Comments, proper error handling, review memory managment, null point checks, etc
 - Add remote commands for reading voltage and current data
+- MQTT TLS Support
 
 # Done
 - WS2812 Driver
 - OTA Updates
 - Wifi Provisioning via BLE
-
-# Notes to self
-## OTA
-- Rememeber you need to configure partitions.csv
-
-## Provisioning
-- To make a QR Code for provisioning use the following JSON string and fill in appropriate values:
-```{"ver":"v1","name":"PROV_123456","pop":"abcd12345","transport":"ble"}```
-- Use the mobile app called "ESP BLE Provisioning"
-- In menuconfig make sure that: Component config -> Bluetooth -> Bluetooth controller -> Controller Options is set to BLE not Dual Mode.
-
-<p float="left">
-  <img src="https://github.com/brokebit/SolarDataLogger/blob/main/assets/Brokebit-Cat-Logo.png?raw=true" width="200" />
-  <img src="https://github.com/brokebit/SolarDataLogger/blob/main/assets/oshw-logo-800-px.png?raw=true" width="200" />
-</p>
