@@ -50,7 +50,14 @@ Edit platform.ini to set some global variables and config parameters.
 - SENSOR_TYPE: Set this to whatever you want. i.e. ESP32-C6 or ESP32-S3. No more than 24 characters
            
 ![alt text](https://github.com/brokebit/SolarDataLogger/blob/main/hardware/Schematic-v1.1.svg?raw=true)
-# Support remove MQTT Commands
+# MQTT
+
+## Channels
+- Influx data is sent to MQTT_TOPIC
+- Command should be submitted to the channel named mac address + "-cmd" i.e. FFEEDDCCBBAA-cmd 
+- Commands responses are sent to the channel named mac address. i.e. FFEEDDCCBBAA
+
+## Support remote MQTT Commands
 - ota - Perform an OTA Update
 - rbk - Roll back to previous version 
 - rst - Reboot
@@ -59,6 +66,10 @@ Edit platform.ini to set some global variables and config parameters.
 - hum - Get current humidity
 - mem - Get free heap memory
 - ver - Get firmware version
+
+# OTA
+- Firmware is download via https from any URL. The firmware looks for a file that is the mac address in all caps. 
+- Firmware URL is defined in : OTA_BASE_URL (without the filename)
 
 # What can you do with it? 
 
