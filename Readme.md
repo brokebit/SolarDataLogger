@@ -83,12 +83,12 @@ Edit platform.ini to set some global variables and config parameters.
 - Redo design in KiCad instead of EasyEDA and add to repo
 - Finish add onboard with INA226 and CMX60D10
 - Code clean up. Comments, proper error handling, review memory managment, null point checks, etc
-- Wifi Provisioning via BLE
 - Add remote commands for reading voltage and current data
 
 # Done
 - WS2812 Driver
 - OTA Updates
+- Wifi Provisioning via BLE
 
 # Notes to self
 ## OTA
