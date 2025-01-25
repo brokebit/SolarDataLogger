@@ -7,7 +7,7 @@ Firmware for custom data logger for Victron MPPT charge controllers via the Ve.D
 ## Features
 - Power via 9v-20v input or USB
 - ESP32-C6 RISC-V CPU
-- Wifi 6 support
+- Wifi 6 support and provisioning credentials via BLE
 - Receive, parse, and publish data from a Victron MPPT controller
 - Publishes: panel voltage, battery voltage, panel current, battery current, serial number, etc
 - Publish data via MQTT in InfluxDB line protocol format
@@ -16,6 +16,7 @@ Firmware for custom data logger for Victron MPPT charge controllers via the Ve.D
 - WS2812 LED for status information
 - CP2102N USB Uart for programing and logging
 - USB port direct to ESP32-C6
+- Remote control via MQTT command channel
 
 
 ## Supported Victron MPPT Controllers
@@ -49,6 +50,34 @@ Edit platform.ini to set some global variables and config parameters.
 - SENSOR_TYPE: Set this to whatever you want. i.e. ESP32-C6 or ESP32-S3. No more than 24 characters
            
 ![alt text](https://github.com/brokebit/SolarDataLogger/blob/main/hardware/Schematic-v1.1.svg?raw=true)
+# MQTT
+
+## Channels
+- Influx data is sent to MQTT_TOPIC
+- Command should be submitted to the channel named mac address + "-cmd" i.e. FFEEDDCCBBAA-cmd 
+- Commands responses are sent to the channel named mac address. i.e. FFEEDDCCBBAA
+
+## Support remote MQTT Commands
+- ota - Perform an OTA Update
+- rbk - Roll back to previous version 
+- rst - Reboot
+- png - Get a pong back
+- tmp - Get current temp in C
+- hum - Get current humidity
+- mem - Get free heap memory
+- ver - Get firmware version
+
+# OTA
+- Firmware is download via https from any URL. The firmware looks for a file that is the mac address in all caps. 
+- Firmware URL is defined in : OTA_BASE_URL (without the filename)
+- Rememeber you need to configure partitions.csv 1mb partition is not enough. 
+
+# WiFi Provisioning
+- To make a QR Code for provisioning use the following JSON string and fill in appropriate values:
+```{"ver":"v1","name":"PROV_123456","pop":"abcd12345","transport":"ble"}```
+- Use the mobile app called "ESP BLE Provisioning"
+- In menuconfig make sure that: Component config -> Bluetooth -> Bluetooth controller -> Controller Options is set to BLE not Dual Mode.
+
 # What can you do with it? 
 
 ## Grafana Dashboard Example
@@ -57,16 +86,14 @@ Edit platform.ini to set some global variables and config parameters.
 # To Do
 - Fix math for INA226 current sensor and address twos compliment
 - CMX60D10 Relay Driver
-- OTA Updates
 - Some way to configure it without recompiling 
 - Redo design in KiCad instead of EasyEDA and add to repo
 - Finish add onboard with INA226 and CMX60D10
 - Code clean up. Comments, proper error handling, review memory managment, null point checks, etc
+- Add remote commands for reading voltage and current data
+- MQTT TLS Support
 
 # Done
 - WS2812 Driver
-
-<p float="left">
-  <img src="https://github.com/brokebit/SolarDataLogger/blob/main/assets/Brokebit-Cat-Logo.png?raw=true" width="200" />
-  <img src="https://github.com/brokebit/SolarDataLogger/blob/main/assets/oshw-logo-800-px.png?raw=true" width="200" />
-</p>
+- OTA Updates
+- Wifi Provisioning via BLE
