@@ -11,12 +11,12 @@
 
 static const char *WIFITAG = "Wifi-Tasks";
 
+// static EventGroupHandle_t s_wifi_event_group;
 
+void wifi_init(EventGroupHandle_t *s_wifi_event_group) {
 
-void wifi_init() {
-
-    static EventGroupHandle_t s_wifi_event_group;
-    s_wifi_event_group = xEventGroupCreate();
+    
+    // s_wifi_event_group = xEventGroupCreate();
 
     esp_err_t err = esp_event_loop_create_default();
     if (err != ESP_OK) {
@@ -27,8 +27,8 @@ void wifi_init() {
     err = esp_event_handler_instance_register(WIFI_PROV_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL, NULL);
     err = esp_event_handler_instance_register(PROTOCOMM_TRANSPORT_BLE_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL, NULL);
     err = esp_event_handler_instance_register(PROTOCOMM_SECURITY_SESSION_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL, NULL);
-    err = esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &event_handler, (void *)s_wifi_event_group, NULL);
-    err = esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &event_handler, NULL, NULL);
+    err = esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &event_handler, s_wifi_event_group, NULL);
+    err = esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &event_handler, s_wifi_event_group, NULL);
     
     if (err != ESP_OK) {
         ESP_LOGE(WIFITAG, "esp_event_handler_instance_register failed");
@@ -70,7 +70,7 @@ void wifi_init() {
 }
 
 static void event_handler(void* handler_args, esp_event_base_t event_base, int32_t event_id, void* event_data) {
-    
+      
     EventGroupHandle_t s_wifi_event_group = (EventGroupHandle_t)handler_args;
 
     static int s_retry_num = 0;
@@ -117,6 +117,6 @@ static void event_handler(void* handler_args, esp_event_base_t event_base, int32
         ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
         ESP_LOGI(WIFITAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
         s_retry_num = 0;
-        //xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+        xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
     }
 }

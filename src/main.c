@@ -66,6 +66,7 @@
 CRGB* ws2812_buffer;
 static const char *TAG = "Main-Task";
 static char my_mac[13];
+static EventGroupHandle_t s_wifi_event_group;
 
 void app_main(void) {
 
@@ -75,6 +76,8 @@ void app_main(void) {
       ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
+
+    s_wifi_event_group = xEventGroupCreate();
 
     ESP_ERROR_CHECK_WITHOUT_ABORT(ws28xx_init(LED_GPIO, WS2812B, 1, &ws2812_buffer));
     ws2812_buffer[0] = (CRGB){.r=25, .g=8, .b=0};
@@ -120,13 +123,14 @@ void app_main(void) {
     #endif
 
     ESP_LOGI(TAG, "Initializing Wifi");
-    wifi_init();
+    wifi_init(s_wifi_event_group);
     
     if (my_mqtt_data->xQueue_mqtt == NULL) { 
         ESP_LOGE(TAG, "Error creating the queue");
         return;
     }
 
+    xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT, false, true, portMAX_DELAY);
     mqtt_init(my_mqtt_data);
 
     xTaskCreate(recieve_serial, "recieve_serial", 4096, (void *)my_mqtt_data->xQueue_mqtt, 1, NULL);
