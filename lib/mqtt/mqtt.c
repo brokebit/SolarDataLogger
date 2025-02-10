@@ -18,7 +18,7 @@ esp_err_t mqtt_publish(esp_mqtt_client_handle_t client, const char *topic, const
 }
 
 esp_err_t process_command(char *command, MY_MQTT_DATA *my_mqtt_data) {
-    // ESP_LOGI(MQTTTAG, "Processing command: %s", command);
+    ESP_LOGI(MQTTTAG, "Processing command: %s", command);
 
     if (strncmp(command, "ota", 3) == 0) {
         ESP_LOGI(MQTTTAG, "OTA Command Recieved");
@@ -65,6 +65,17 @@ esp_err_t process_command(char *command, MY_MQTT_DATA *my_mqtt_data) {
         snprintf(hum_data, sizeof(hum_data), "%.3f", my_mqtt_data->aht20_data.humidity);
         mqtt_publish(my_mqtt_data->client, my_mqtt_data->mac, hum_data);
     }
+
+    if (strncmp(command, "gp1-0", 5)) {
+        ESP_LOGI("MQTTTAG", "Turn off GPIO1");
+        gpio_set_level(1,0);
+    }
+
+    if (strncmp(command, "gp1-1", 5)) {
+        ESP_LOGI("MQTTTAG", "Turn on GPIO1");
+        gpio_set_level(1,1);
+    }
+
 
     return ESP_OK;
 }
@@ -114,7 +125,7 @@ void mqtt_app_start(void *pvParameter) {
             if (INA226_PRESENT == 1) {
                 ina226_voltage(&my_mqtt_data->ina226_data);
                 ina226_current(&my_mqtt_data->ina226_data);
-                snprintf(SolarData_Now.IL, sizeof(SolarData_Now.IL), "%.2f", my_mqtt_data->ina226_data.current);
+                snprintf(SolarData_Now.IL, sizeof(SolarData_Now.IL), "%.3f", my_mqtt_data->ina226_data.current);
                 ina226_power(&my_mqtt_data->ina226_data);
             }
             

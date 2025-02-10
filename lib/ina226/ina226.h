@@ -1,7 +1,7 @@
 #ifndef MAIN_INA226_H_
 #define MAIN_INA226_H_
 
-#define INA226_CAL_VAL          0x91
+#define INA226_CAL_VAL          0x4F2
 #define INA226_CFG_REG_VAL      0x4527 // Average over 16 Samples
 #define INA226_SLAVE_ADDRESS	0x40
 #define INA226_CFG_REG		    0x00

@@ -8,6 +8,7 @@
 #include "freertos/event_groups.h"
 #include "freertos/semphr.h"
 #include "freertos/queue.h"
+#include "driver/gpio.h"
 
 #include "esp_system.h"
 #include "esp_wifi.h"
@@ -33,6 +34,9 @@
 #define FIRMWARE_VERSION "1.1.4"
 #define SENSOR_LOCATION "alley"
 #define SENSOR_TYPE "esp32c6"
+
+// #define GPIO1_CTL CONFIG_GPIO_INPUT_1
+// #define GPIO2_CTL CONFIG_GPIO_INPUT_2
 
 #define LED_GPIO 8
 #define SDA_GPIO 18
@@ -143,4 +147,16 @@ void app_main(void) {
 
     ESP_LOGI(TAG, "Firmware Version: %s", FIRMWARE_VERSION);
 
+    gpio_dump_io_configuration(stdout, (1ULL << 1) |(1ULL << 2));
+
+    gpio_config_t gpio_cfg = {};
+    gpio_cfg.intr_type = GPIO_INTR_DISABLE;
+    gpio_cfg.mode = GPIO_MODE_OUTPUT;
+    gpio_cfg.pin_bit_mask = ((1ULL << 1)|(1ULL << 2));
+    gpio_cfg.pull_down_en = 1;
+    gpio_cfg.pull_up_en = 0;
+    gpio_config(&gpio_cfg);
+    
+    gpio_dump_io_configuration(stdout, (1ULL << 1) |(1ULL << 2));
+    
 }

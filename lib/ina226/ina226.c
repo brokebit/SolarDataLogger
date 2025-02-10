@@ -104,9 +104,9 @@ esp_err_t ina226_current(INA226_DATA *ina226_data) {
 	}
 
 	// Internally Calculated as Current = ((ShuntVoltage * CalibrationRegister) / 2048)
-	// Need to come back here to deal with twos compliment
+	// supposedly by casting currentReg into a int16_t the twos compliment value will be delt with. 
 
-    ina226_data->current = (65536 - currentReg)*.0005;
+    ina226_data->current = (int16_t)currentReg*.0005;
 
 	return err;
 }
