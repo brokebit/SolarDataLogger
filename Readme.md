@@ -1,4 +1,7 @@
 ![alt text](https://github.com/brokebit/SolarDataLoggerV2-ESP-IDF/blob/main/assets/BoardScreenshot.png?raw=true)
+# This repo has submodules
+- To clone: git clone --recurse-submodules -j8 REPO_URL
+- To pull latest versin: git pull --recurse-submodules
 
 # What is all this
 

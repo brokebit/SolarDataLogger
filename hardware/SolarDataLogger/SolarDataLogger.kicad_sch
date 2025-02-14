@@ -5475,10 +5475,6 @@
 		(uuid "0d90a942-590a-42a2-9714-5b5ee9ab5269")
 	)
 	(no_connect
-		(at 223.52 156.21)
-		(uuid "118546a8-2f5e-46c8-97dc-e3abdf79718c")
-	)
-	(no_connect
 		(at 144.78 43.18)
 		(uuid "13f4fb2f-6333-4353-b7fd-eadb86a4fd0b")
 	)
@@ -5497,10 +5493,6 @@
 	(no_connect
 		(at 264.16 166.37)
 		(uuid "3d1c5e98-e97d-457b-b1e1-4ee788a900ef")
-	)
-	(no_connect
-		(at 223.52 151.13)
-		(uuid "40cdaa23-1a7b-42a0-b6df-f3ef8df8ec85")
 	)
 	(no_connect
 		(at 48.26 58.42)
@@ -5527,14 +5519,6 @@
 		(uuid "57e5c692-d865-40b7-89df-ea5f7c3a670e")
 	)
 	(no_connect
-		(at 223.52 158.75)
-		(uuid "5e4f2c82-b4ad-449a-bd41-f77a182ea143")
-	)
-	(no_connect
-		(at 223.52 153.67)
-		(uuid "75750d09-953c-4489-9551-dd28248c0105")
-	)
-	(no_connect
 		(at 264.16 163.83)
 		(uuid "7e754dda-905e-4989-9ead-9a126f83486c")
 	)
@@ -5543,8 +5527,8 @@
 		(uuid "83831462-d268-404d-a399-feb879b2ed55")
 	)
 	(no_connect
-		(at 223.52 161.29)
-		(uuid "8c87b921-240e-4b7a-9adb-22ad588a3359")
+		(at 223.52 151.13)
+		(uuid "87ebe858-532f-405d-800b-29a0278ea1d4")
 	)
 	(no_connect
 		(at 144.78 48.26)
@@ -6496,6 +6480,16 @@
 	)
 	(wire
 		(pts
+			(xy 213.36 156.21) (xy 223.52 156.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5cf44f20-3e3c-476a-8ca9-aebe66320653")
+	)
+	(wire
+		(pts
 			(xy 262.89 73.66) (xy 270.51 73.66)
 		)
 		(stroke
@@ -6996,6 +6990,16 @@
 	)
 	(wire
 		(pts
+			(xy 213.36 161.29) (xy 223.52 161.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "937fd093-bc09-4225-8d4f-26b9153fe129")
+	)
+	(wire
+		(pts
 			(xy 104.14 129.54) (xy 104.14 125.73)
 		)
 		(stroke
@@ -7326,6 +7330,16 @@
 	)
 	(wire
 		(pts
+			(xy 213.36 158.75) (xy 223.52 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "adae7904-796e-4948-a3ae-122373ecb2ee")
+	)
+	(wire
+		(pts
 			(xy 54.61 133.35) (xy 54.61 138.43)
 		)
 		(stroke
@@ -7453,6 +7467,16 @@
 			(type default)
 		)
 		(uuid "bfa1ae7b-993a-478c-bca1-0bdf2bda77a4")
+	)
+	(wire
+		(pts
+			(xy 213.36 153.67) (xy 223.52 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfeb519a-1ad8-4156-a1e4-aa85eb9e34d3")
 	)
 	(wire
 		(pts
@@ -8470,7 +8494,6 @@
 	)
 	(label "SCL"
 		(at 269.24 156.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8481,7 +8504,6 @@
 	)
 	(label "GPIO9"
 		(at 67.31 265.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8492,7 +8514,6 @@
 	)
 	(label "SDA"
 		(at 246.38 71.12 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8503,7 +8524,6 @@
 	)
 	(label "TXD0"
 		(at 265.43 153.67 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8514,7 +8534,6 @@
 	)
 	(label "USB_D+"
 		(at 265.43 146.05 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8525,7 +8544,6 @@
 	)
 	(label "CHIP_PU"
 		(at 314.96 48.26 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8536,7 +8554,6 @@
 	)
 	(label "GPIO8"
 		(at 364.49 99.06 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8547,7 +8564,6 @@
 	)
 	(label "V_TXD"
 		(at 322.58 142.24 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8558,7 +8574,6 @@
 	)
 	(label "V_TXD"
 		(at 265.43 140.97 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8567,9 +8582,18 @@
 		)
 		(uuid "45d4589f-6bf3-4f78-ae51-ff7a6a9b7da6")
 	)
+	(label "MTDI"
+		(at 214.63 156.21 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "56218182-d688-4410-8948-229ed8b58565")
+	)
 	(label "SCL"
 		(at 264.16 71.12 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8580,7 +8604,6 @@
 	)
 	(label "TXD0"
 		(at 238.76 121.92 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8589,9 +8612,18 @@
 		)
 		(uuid "5dd2481f-ee98-4f11-8cc3-bdbbee57b9ed")
 	)
+	(label "MTMS"
+		(at 214.63 153.67 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6192441b-56d2-47ca-a227-0a5dbb67f12d")
+	)
 	(label "RXD0"
 		(at 265.43 151.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8602,7 +8634,6 @@
 	)
 	(label "RXD0"
 		(at 261.62 121.92 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8613,7 +8644,6 @@
 	)
 	(label "TXD0"
 		(at 195.58 63.5 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8622,9 +8652,18 @@
 		)
 		(uuid "6e478040-3e78-47d0-8d7b-6675b99df056")
 	)
+	(label "MTCK"
+		(at 214.63 158.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "81441efd-5d05-45b0-a209-b2fc14343b24")
+	)
 	(label "SDA"
 		(at 270.51 43.18 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8635,7 +8674,6 @@
 	)
 	(label "GPIO8"
 		(at 215.9 163.83 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8646,7 +8684,6 @@
 	)
 	(label "D+"
 		(at 135.89 66.04 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8657,7 +8694,6 @@
 	)
 	(label "RXD0"
 		(at 195.58 60.96 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8668,7 +8704,6 @@
 	)
 	(label "SCL"
 		(at 240.03 43.18 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8679,7 +8714,6 @@
 	)
 	(label "GPIO2"
 		(at 264.16 73.66 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8690,7 +8724,6 @@
 	)
 	(label "D-"
 		(at 135.89 63.5 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8701,7 +8734,6 @@
 	)
 	(label "D-"
 		(at 88.9 63.5 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8712,7 +8744,6 @@
 	)
 	(label "GPIO1"
 		(at 214.63 146.05 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8723,7 +8754,6 @@
 	)
 	(label "USB_D-"
 		(at 91.44 140.97 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8734,7 +8764,6 @@
 	)
 	(label "USB_D-"
 		(at 265.43 143.51 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8745,7 +8774,6 @@
 	)
 	(label "RTS"
 		(at 195.58 58.42 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8754,9 +8782,18 @@
 		)
 		(uuid "b38b396b-9af3-463b-8189-8be468ec2fdc")
 	)
+	(label "MTDO"
+		(at 214.63 161.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bbb394b9-0de7-45b6-8110-f9c2138d58d3")
+	)
 	(label "GPIO9"
 		(at 215.9 166.37 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8767,7 +8804,6 @@
 	)
 	(label "RTS"
 		(at 355.6 48.26 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8778,7 +8814,6 @@
 	)
 	(label "USB_D+"
 		(at 91.44 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8789,7 +8824,6 @@
 	)
 	(label "CHIP_PU"
 		(at 214.63 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8800,7 +8834,6 @@
 	)
 	(label "V_RXD"
 		(at 265.43 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8811,7 +8844,6 @@
 	)
 	(label "DTR"
 		(at 314.96 43.18 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8822,7 +8854,6 @@
 	)
 	(label "D+"
 		(at 88.9 66.04 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8833,7 +8864,6 @@
 	)
 	(label "GPIO2"
 		(at 214.63 148.59 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8844,7 +8874,6 @@
 	)
 	(label "SDA"
 		(at 269.24 158.75 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8855,7 +8884,6 @@
 	)
 	(label "GPIO1"
 		(at 246.38 73.66 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8866,7 +8894,6 @@
 	)
 	(label "V_RXD"
 		(at 322.58 139.7 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8877,7 +8904,6 @@
 	)
 	(label "GPIO9"
 		(at 353.06 43.18 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8888,7 +8914,6 @@
 	)
 	(label "DTR"
 		(at 195.58 68.58 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8899,7 +8924,6 @@
 	)
 	(label "CHIP_PU"
 		(at 106.68 265.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)

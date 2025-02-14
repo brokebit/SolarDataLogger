@@ -491,7 +491,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "../../../../../Downloads/SolarDataLogger.step",
+      "step": "SolarDataLogger.step",
       "svg": "",
       "vrml": ""
     },
