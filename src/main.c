@@ -46,7 +46,7 @@
 #define MQTT_PUBLISH_INTERVAL 60
 #define MQTT_TOPIC         "sensors_beta"
 #define QUEUE_REFILL_WAIT 3000
-#define CONFIG_BROKER_URL "mqtt://192.168.100.20"
+#define CONFIG_BROKER_URL "mqtts://brokebit:2BitFlyHereAndThere@mqtt.dynowski.com:8883"
 
 #if (INA226_PRESENT == 1) || (AHT20_PRESENT == 1)
     #include "my-i2c.h"
